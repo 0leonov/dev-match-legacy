@@ -1,3 +1,3 @@
-export function WelcomePage() {
+export default function WelcomePage() {
   return <main>WelcomePage</main>;
 }
