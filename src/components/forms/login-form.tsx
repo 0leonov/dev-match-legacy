@@ -60,11 +60,15 @@ export function LoginForm() {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="mt-4">
+            <FormItem>
               <FormLabel>Email</FormLabel>
 
               <FormControl>
-                <Input placeholder="example@company.com" {...field} />
+                <Input
+                  placeholder="example@company.com"
+                  type="email"
+                  {...field}
+                />
               </FormControl>
 
               <FormMessage />
@@ -80,7 +84,7 @@ export function LoginForm() {
               <FormLabel>Password</FormLabel>
 
               <FormControl>
-                <Input placeholder="••••••••••" {...field} />
+                <Input placeholder="••••••••••" type="password" {...field} />
               </FormControl>
 
               <FormMessage />
