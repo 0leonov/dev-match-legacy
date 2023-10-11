@@ -92,9 +92,9 @@ export function LoginForm() {
           )}
         />
 
-        <Button className="mt-8" disabled={isLoading}>
+        <Button className="w-full mt-8" disabled={isLoading}>
           {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-          Login
+          Sign in
         </Button>
       </form>
     </Form>
