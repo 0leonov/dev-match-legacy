@@ -2,7 +2,7 @@ import React from "react";
 import { type Metadata } from "next";
 import { Inter } from "next/font/google";
 
-import { ReduxProvider } from "@/store/slices/redux-provider";
+import { ReduxProvider } from "@/store/redux-provider";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 

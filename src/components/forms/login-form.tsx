@@ -26,7 +26,7 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>;
 
-export function LoginForm() {
+export function LoginForm({ className }: { className?: string }) {
   const { isLoading, error, login } = useLogin();
 
   const form = useForm<FormSchema>({
@@ -49,13 +49,9 @@ export function LoginForm() {
     }
   }, [error, toast]);
 
-  async function onSubmit({ email, password }: FormSchema) {
-    await login(email, password);
-  }
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(login)} className={className}>
         <FormField
           control={form.control}
           name="email"

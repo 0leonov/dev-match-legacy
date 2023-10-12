@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AxiosError } from "axios";
 
-import { axiosInstance } from "@/lib/axios-instance";
+import { getAxiosInstance } from "@/lib/axios-instance";
 
 export function usePost<T>(url: string) {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +13,7 @@ export function usePost<T>(url: string) {
     setError(null);
 
     try {
-      const { data } = await axiosInstance.post<T>("/auth/login", payload);
+      const { data } = await getAxiosInstance().post<T>(url, payload);
 
       setData(data);
     } catch (error) {
