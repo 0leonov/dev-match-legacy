@@ -5,8 +5,6 @@ import React from "react";
 import { LoginForm } from "@/components/forms/login-form";
 
 export default function LoginPage() {
-  console.log(1);
-
   return (
     <main className="min-h-screen bg-muted">
       <div className="p-8 sm:pt-24">
