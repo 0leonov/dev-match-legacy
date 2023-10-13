@@ -12,8 +12,8 @@ export default function LoginPage() {
           <Image
             src="/logo.svg"
             alt=""
-            width={48}
-            height={48}
+            width={64}
+            height={64}
             className="mx-auto"
           />
         </Link>
@@ -27,9 +27,7 @@ export default function LoginPage() {
         </p>
       </div>
 
-      <div className="max-w-md w-full mx-auto p-8 pb-10 border bg-card text-card-foreground shadow-sm xs:rounded-lg">
-        <LoginForm />
-      </div>
+      <LoginForm className="max-w-md w-full mx-auto p-8 pb-10 border bg-card text-card-foreground shadow-sm xs:rounded-lg" />
 
       <p className="p-8 text-center">
         {"Don't have an account? "}
@@ -39,6 +37,7 @@ export default function LoginPage() {
         >
           Sign up
         </Link>
+        .
       </p>
     </main>
   );

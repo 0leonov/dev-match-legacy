@@ -6,13 +6,13 @@ import { LoginResponse } from "@/types/login-response";
 import { set } from "@/store/slices/session-slice";
 import { useAppDispatch } from "@/store";
 
-export function useLogin() {
+export function useRegister() {
   const appDispatch = useAppDispatch();
 
   const router = useRouter();
 
   const { isLoading, error, data, post } =
-    usePost<LoginResponse>("/auth/login");
+    usePost<LoginResponse>("/auth/register");
 
   useEffect(() => {
     if (data) {
@@ -21,13 +21,18 @@ export function useLogin() {
     }
   }, [appDispatch, data, router]);
 
-  async function login(email: string, password: string) {
-    await post({ email, password });
+  async function register(payload: {
+    name: string;
+    username: string;
+    email: string;
+    password: string;
+  }) {
+    await post(payload);
   }
 
   return {
     isLoading,
     error,
-    login,
+    register,
   };
 }
