@@ -1,9 +1,11 @@
+import React from "react";
+
 import {
   Header,
   WelcomeSection,
   ScrollDownBlock,
-  Footer,
   WhyChooseUsSection,
+  Footer,
 } from "./components";
 
 export default function WelcomePage() {

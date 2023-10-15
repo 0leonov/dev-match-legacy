@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import { setUser } from "@/store/slices/session-slice";
-import { useAppDispatch } from "@/store";
-import { User } from "@/types/user";
 import { getAxiosInstance } from "@/lib/axios-instance";
-import { useAppSelector } from "@/store";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { setUser } from "@/store/slices/session-slice";
+import { User } from "@/types/user";
 
 export function useUser() {
   const { accessToken, user } = useAppSelector((state) => state.session);
@@ -25,16 +24,18 @@ export function useUser() {
 
     getAxiosInstance(accessToken)
       .get<User>("/users/me")
-      .then(({ data }) => {
-        appDispatch(setUser(data));
+      .then(({ data: responseData }) => {
+        appDispatch(setUser(responseData));
       })
-      .catch((error) => {
-        if (error instanceof AxiosError) {
-          if (error.code === "401") {
+      .catch((responseError) => {
+        if (responseError instanceof AxiosError) {
+          if (responseError.code === "401") {
             return router.push("/login");
           }
 
-          setError(error?.response?.data?.message || error.message);
+          setError(
+            responseError?.response?.data?.message || responseError.message,
+          );
         } else {
           setError("Unexpected error.");
         }

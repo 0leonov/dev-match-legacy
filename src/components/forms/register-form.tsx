@@ -1,10 +1,10 @@
 "use client";
 
-import { InputHTMLAttributes, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { Loader2 } from "lucide-react";
+import React, { InputHTMLAttributes, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,8 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRegister } from "@/hooks/use-register";
 import { useToast } from "@/components/ui/use-toast";
+import { useRegister } from "@/hooks/use-register";
 
 const formSchema = z.object({
   name: z
@@ -41,14 +41,14 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>;
 
-interface FormField {
+interface FormFieldProps {
   name: keyof FormSchema;
   label?: string;
   description?: string;
   inputProps?: InputHTMLAttributes<HTMLInputElement>;
 }
 
-const formFields: FormField[] = [
+const formFieldsProps: FormFieldProps[] = [
   {
     name: "name",
     label: "Name",
@@ -112,7 +112,7 @@ export function RegisterForm({ className }: { className?: string }) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(register)} className={className}>
         <div className="space-y-4">
-          {formFields.map(({ name, label, description, inputProps }) => (
+          {formFieldsProps.map(({ name, label, description, inputProps }) => (
             <FormField
               key={name}
               control={form.control}

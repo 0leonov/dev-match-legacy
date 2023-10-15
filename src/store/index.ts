@@ -1,5 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import {
+  type TypedUseSelectorHook,
+  useSelector,
+  useDispatch,
+} from "react-redux";
 import { getPersistConfig } from "redux-deep-persist";
 import {
   persistStore,

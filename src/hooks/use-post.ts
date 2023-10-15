@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { AxiosError } from "axios";
+import { useState } from "react";
 
 import { getAxiosInstance } from "@/lib/axios-instance";
 
@@ -8,17 +8,22 @@ export function usePost<T>(url: string) {
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<T | null>(null);
 
-  async function post(payload: any) {
+  async function post(payload: unknown) {
     setIsLoading(true);
     setError(null);
 
     try {
-      const { data } = await getAxiosInstance().post<T>(url, payload);
+      const { data: responseData } = await getAxiosInstance().post<T>(
+        url,
+        payload,
+      );
 
-      setData(data);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        setError(error?.response?.data?.message || error.message);
+      setData(responseData);
+    } catch (responseError) {
+      if (responseError instanceof AxiosError) {
+        setError(
+          responseError?.response?.data?.message || responseError.message,
+        );
       } else {
         setError("Unexpected error.");
       }

@@ -1,10 +1,10 @@
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import { usePost } from "@/hooks/use-post";
-import { LoginResponse } from "@/types/login-response";
-import { set } from "@/store/slices/session-slice";
 import { useAppDispatch } from "@/store";
+import { set } from "@/store/slices/session-slice";
+import { LoginResponse } from "@/types/login-response";
 
 export function useLogin() {
   const appDispatch = useAppDispatch();
