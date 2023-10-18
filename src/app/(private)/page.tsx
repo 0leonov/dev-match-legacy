@@ -3,43 +3,24 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useUser } from "@/hooks/use-user";
-import { getAxiosInstance } from "@/lib/axios-instance";
-import { useAppDispatch } from "@/store";
-import { signOut } from "@/store/slices/session-slice";
+import { useSession } from "@/hooks/auth/use-session";
 
 export default function Home() {
-  const { user } = useUser();
+  const { error, user } = useSession();
 
   const router = useRouter();
 
-  const appDispatch = useAppDispatch();
-
-  async function signOutHandler() {
-    appDispatch(signOut());
-
-    await getAxiosInstance().post("auth/logout");
-
-    router.push("/welcome");
+  if (error?.response?.status === 401) {
+    router.push("/login");
   }
 
   return (
     <main className="p-8">
       <h1 className="text-4xl font-extrabold tracking-tight">Profile</h1>
 
-      {user && (
-        <div className="leading-7 [&:not(:first-child)]:mt-6">
-          <p>ID: {user.id || <Skeleton className="h-4 w-12" />}</p>
-          <p>Name: {user.name || <Skeleton className="h-4 w-12" />}</p>
-          <p>Email: {user.email || <Skeleton className="h-4 w-12" />}</p>
-          <p>Roles: {user.roles || <Skeleton className="h-4 w-12" />}</p>
-          <p>Username: {user.username || <Skeleton className="h-4 w-12" />}</p>
-        </div>
-      )}
-
-      <Button onClick={() => signOutHandler()}>Sign Out</Button>
+      <div className="leading-7 [&:not(:first-child)]:mt-6">
+        <p>Username: {user?.username}</p>
+      </div>
     </main>
   );
 }

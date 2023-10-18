@@ -1,10 +1,10 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import { usePost } from "@/hooks/use-post";
+import { useLazyPost } from "@/hooks/use-lazy-post";
 import { useAppDispatch } from "@/store";
-import { set } from "@/store/slices/session-slice";
-import { LoginResponse } from "@/types/login-response";
+import { updateSession } from "@/store/slices/session-slice";
+import { LoginResponse } from "@/types";
 
 export function useLogin() {
   const appDispatch = useAppDispatch();
@@ -12,11 +12,11 @@ export function useLogin() {
   const router = useRouter();
 
   const { isLoading, error, data, post } =
-    usePost<LoginResponse>("/auth/login");
+    useLazyPost<LoginResponse>("/auth/login");
 
   useEffect(() => {
     if (data) {
-      appDispatch(set(data));
+      appDispatch(updateSession(data));
       router.push("/");
     }
   }, [appDispatch, data, router]);

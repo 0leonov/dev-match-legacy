@@ -1,26 +1,29 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useRouter } from "next/router";
+import React from "react";
 
-import { useAppSelector } from "@/store";
+import { useSession } from "@/hooks/auth/use-session";
 
 export default function PublicLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const isAuthenticated = !!useAppSelector(
-    (state) => state.session.accessToken,
-  );
-
-  const router = useRouter();
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/");
-    }
-  }, [isAuthenticated, router]);
+  // const router = useRouter();
+  //
+  // const { isLoading, error, user } = useSession();
+  //
+  // if (isLoading) {
+  //   return "loading";
+  // }
+  //
+  // if (user) {
+  //   router.push("/");
+  //   return;
+  // }
+  //
+  // console.log({ isLoading, error, user });
 
   return children;
 }

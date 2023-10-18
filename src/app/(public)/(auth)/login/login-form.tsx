@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { useLogin } from "@/hooks/use-login";
+import { useLogin } from "@/hooks/auth/use-login";
 
 const formSchema = z.object({
   email: z.string().min(1, { message: "Email ir required." }),

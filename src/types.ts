@@ -5,3 +5,8 @@ export interface User {
   name: string;
   roles: string[];
 }
+
+export interface LoginResponse {
+  accessToken: string;
+  user: User;
+}

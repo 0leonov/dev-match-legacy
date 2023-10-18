@@ -15,9 +15,30 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import { WebStorage } from "redux-persist/lib/types";
 
 import sessionReducer from "@/store/slices/session-slice";
+
+export function createPersistStorage(): WebStorage {
+  if (typeof window === "undefined") {
+    return {
+      getItem() {
+        return Promise.resolve(null);
+      },
+      setItem() {
+        return Promise.resolve();
+      },
+      removeItem() {
+        return Promise.resolve();
+      },
+    };
+  }
+
+  return createWebStorage("local");
+}
+
+const storage = createPersistStorage();
 
 const rootReducer = combineReducers({ session: sessionReducer });
 
