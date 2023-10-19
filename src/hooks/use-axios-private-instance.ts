@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { useRefreshTokens } from "@/hooks/use-refresh-tokens";
-import { axiosPrivateInstance } from "@/lib/axios-instance";
+import { axiosInstance } from "@/lib/axios-instance";
 import { useAppSelector } from "@/store";
 
 export function UseAxiosPrivateInstance() {
@@ -10,7 +10,7 @@ export function UseAxiosPrivateInstance() {
   const accessToken = useAppSelector((state) => state.session.accessToken);
 
   useEffect(() => {
-    const requestInterceptor = axiosPrivateInstance.interceptors.request.use(
+    const requestInterceptor = axiosInstance.interceptors.request.use(
       (config) => {
         config.headers.Authorization = accessToken;
         return config;
@@ -18,7 +18,7 @@ export function UseAxiosPrivateInstance() {
       (error) => Promise.reject(error),
     );
 
-    const responseInterceptor = axiosPrivateInstance.interceptors.response.use(
+    const responseInterceptor = axiosInstance.interceptors.response.use(
       (response) => response,
       async (error) => {
         const previousRequest = error?.config;
@@ -28,17 +28,17 @@ export function UseAxiosPrivateInstance() {
         ) {
           previousRequest.isRetryRequest = true;
           previousRequest.headers.Authorization = await refreshTokens();
-          return axiosPrivateInstance(previousRequest);
+          return axiosInstance(previousRequest);
         }
         return Promise.reject(error);
       },
     );
 
     return () => {
-      axiosPrivateInstance.interceptors.request.eject(requestInterceptor);
-      axiosPrivateInstance.interceptors.response.eject(responseInterceptor);
+      axiosInstance.interceptors.request.eject(requestInterceptor);
+      axiosInstance.interceptors.response.eject(responseInterceptor);
     };
   }, [accessToken, refreshTokens]);
 
-  return axiosPrivateInstance;
+  return axiosInstance;
 }

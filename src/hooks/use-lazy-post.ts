@@ -13,9 +13,9 @@ export function useLazyPost<T>(url: string) {
     setError(null);
 
     try {
-      const { data: responseData } = await axiosInstance.post<T>(url, payload);
+      const axiosResponse = await axiosInstance.post<T>(url, payload);
 
-      setData(responseData);
+      setData(axiosResponse.data);
     } catch (responseError) {
       if (responseError instanceof AxiosError) {
         setError(

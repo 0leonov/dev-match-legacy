@@ -1,17 +1,18 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import React from "react";
 
+import { Button } from "@/components/ui/button";
+import { useLogout } from "@/hooks/auth/use-logout";
 import { useSession } from "@/hooks/auth/use-session";
 
 export default function Home() {
-  const { error, user } = useSession();
+  const { user } = useSession();
 
-  const router = useRouter();
+  const { isLoading, logout } = useLogout();
 
-  if (error?.response?.status === 401) {
-    router.push("/login");
+  function logoutHandler() {
+    logout();
   }
 
   return (
@@ -21,6 +22,10 @@ export default function Home() {
       <div className="leading-7 [&:not(:first-child)]:mt-6">
         <p>Username: {user?.username}</p>
       </div>
+
+      <Button onClick={logoutHandler} disabled={isLoading}>
+        Logout
+      </Button>
     </main>
   );
 }

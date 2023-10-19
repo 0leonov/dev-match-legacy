@@ -11,7 +11,7 @@ export function useSession() {
   const { accessToken, user } = useAppSelector((state) => state.session);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<AxiosError | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const appDispatch = useAppDispatch();
   const router = useRouter();
@@ -20,11 +20,14 @@ export function useSession() {
 
   useEffect(() => {
     if (!accessToken) {
+      appDispatch(resetSession());
       router.push("/login");
+      setIsLoading(false);
       return;
     }
 
     if (user) {
+      setIsLoading(false);
       return;
     }
 
@@ -39,16 +42,20 @@ export function useSession() {
         });
 
         appDispatch(updateUser(data));
+        setIsLoading(false);
       } catch (err) {
-        console.log(12345);
-
-        if (err instanceof AxiosError && err.name != "CanceledError") {
-          setError(err);
-          appDispatch(resetSession());
-        } else {
-          console.error(err);
+        if (err instanceof AxiosError && err.name === "CanceledError") {
+          return;
         }
-      } finally {
+
+        appDispatch(resetSession());
+
+        if (err instanceof AxiosError) {
+          setError(err.response?.data.message || err.message);
+        } else {
+          setError("Unexpected error.");
+        }
+
         setIsLoading(false);
       }
     }
