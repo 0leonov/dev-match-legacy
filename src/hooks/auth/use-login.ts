@@ -21,8 +21,8 @@ export function useLogin() {
     }
   }, [appDispatch, data, router]);
 
-  async function login(payload: { email: string; password: string }) {
-    await post(payload);
+  function login(payload: { email: string; password: string }) {
+    post(payload);
   }
 
   return {

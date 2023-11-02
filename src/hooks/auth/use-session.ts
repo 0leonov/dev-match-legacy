@@ -16,12 +16,14 @@ export function useSession(redirect: boolean = true) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    console.log(123);
+
     if (!accessToken) {
       appDispatch(resetSession());
       setIsLoading(false);
 
       if (redirect) {
-        router.push("/loginSchema");
+        router.push("/login");
       }
 
       return;
@@ -56,7 +58,7 @@ export function useSession(redirect: boolean = true) {
         setIsLoading(false);
 
         if (redirect) {
-          router.push("/loginSchema");
+          router.push("/login");
         }
       }
     };

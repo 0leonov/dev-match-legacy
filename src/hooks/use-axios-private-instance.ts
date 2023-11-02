@@ -24,6 +24,8 @@ export function useAxiosPrivateInstance() {
       async (error) => {
         const previousRequest = error?.config;
 
+        console.log(123);
+
         if (
           error?.response?.status === 401 &&
           !previousRequest?.isRetryRequest
