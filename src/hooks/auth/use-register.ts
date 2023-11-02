@@ -2,9 +2,9 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 import { useLazyPost } from "@/hooks/use-lazy-post";
+import { LoginResponse } from "@/interfaces";
 import { useAppDispatch } from "@/store";
 import { updateSession } from "@/store/slices/session-slice";
-import { LoginResponse } from "@/types";
 
 export function useRegister() {
   const appDispatch = useAppDispatch();

@@ -1,7 +1,8 @@
+import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { UseAxiosPrivateInstance } from "@/hooks/use-axios-private-instance";
+import { useAxiosPrivateInstance } from "@/hooks/use-axios-private-instance";
 import { useAppDispatch } from "@/store";
 import { resetSession } from "@/store/slices/session-slice";
 
@@ -11,16 +12,23 @@ export function useLogout() {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const axiosPrivateInstance = UseAxiosPrivateInstance();
+  const axiosPrivateInstance = useAxiosPrivateInstance();
 
   async function logout() {
     setIsLoading(true);
-    const response = await axiosPrivateInstance.post("/auth/logout");
 
-    if (response?.status === 200) {
+    try {
+      await axiosPrivateInstance.post("/auth/logout");
       appDispatch(resetSession());
       router.push("/welcome");
+    } catch (requestError) {
+      setError(
+        requestError instanceof AxiosError
+          ? requestError?.response?.data?.message || requestError.message
+          : "Unexpected error.",
+      );
     }
 
     setIsLoading(false);
@@ -28,6 +36,7 @@ export function useLogout() {
 
   return {
     isLoading,
+    error,
     logout,
   };
 }

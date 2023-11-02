@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Dev Match",
   description:
-    "Social network for IT specialists – search, collaborate, learn, chat",
+    "Social network for IT specialists – search, collaborate, learn, communicate",
   icons: "/logo.svg",
 };
 

@@ -2,27 +2,28 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { UseAxiosPrivateInstance } from "@/hooks/use-axios-private-instance";
+import { useAxiosPrivateInstance } from "@/hooks/use-axios-private-instance";
+import { User } from "@/interfaces";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { resetSession, updateUser } from "@/store/slices/session-slice";
-import { User } from "@/types";
 
-export function useSession() {
+export function useSession(redirect: boolean = true) {
   const { accessToken, user } = useAppSelector((state) => state.session);
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
   const appDispatch = useAppDispatch();
   const router = useRouter();
+  const axiosPrivateInstance = useAxiosPrivateInstance();
 
-  const axiosPrivateInstance = UseAxiosPrivateInstance();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!accessToken) {
       appDispatch(resetSession());
-      router.push("/login");
       setIsLoading(false);
+
+      if (redirect) {
+        router.push("/loginSchema");
+      }
+
       return;
     }
 
@@ -32,44 +33,44 @@ export function useSession() {
     }
 
     const abortController = new AbortController();
+    const { signal } = abortController;
 
-    async function fetchUser() {
-      setIsLoading(true);
-
+    const fetchData = async () => {
       try {
-        const { data } = await axiosPrivateInstance.get<User>("/users/me", {
-          signal: abortController.signal,
+        const { data } = await axiosPrivateInstance.get<User>("/me", {
+          signal,
         });
 
         appDispatch(updateUser(data));
+
         setIsLoading(false);
-      } catch (err) {
-        if (err instanceof AxiosError && err.name === "CanceledError") {
+      } catch (requestError) {
+        if (
+          requestError instanceof AxiosError &&
+          requestError.code === "ERR_CANCELED"
+        ) {
           return;
         }
 
         appDispatch(resetSession());
-
-        if (err instanceof AxiosError) {
-          setError(err.response?.data.message || err.message);
-        } else {
-          setError("Unexpected error.");
-        }
-
         setIsLoading(false);
-      }
-    }
 
-    fetchUser();
+        if (redirect) {
+          router.push("/loginSchema");
+        }
+      }
+    };
+
+    fetchData().then();
 
     return () => {
       abortController.abort();
     };
-  }, [accessToken, appDispatch, axiosPrivateInstance, router, user]);
+  }, [accessToken, appDispatch, axiosPrivateInstance, redirect, router, user]);
 
   return {
     isLoading,
-    error,
     user,
+    accessToken,
   };
 }

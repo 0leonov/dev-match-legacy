@@ -2,32 +2,32 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 import { useLazyPost } from "@/hooks/use-lazy-post";
-import { LoginResponse } from "@/interfaces";
+import { User } from "@/interfaces";
 import { useAppDispatch } from "@/store";
-import { updateSession } from "@/store/slices/session-slice";
+import { updateUser } from "@/store/slices/session-slice";
 
-export function useLogin() {
+export function useUpdate() {
   const appDispatch = useAppDispatch();
 
   const router = useRouter();
 
-  const { isLoading, error, data, post } =
-    useLazyPost<LoginResponse>("/auth/login");
+  const { isLoading, error, data, post } = useLazyPost<User>("/me");
 
   useEffect(() => {
     if (data) {
-      appDispatch(updateSession(data));
-      router.push("/");
+      appDispatch(updateUser(data));
     }
   }, [appDispatch, data, router]);
 
-  async function login(payload: { email: string; password: string }) {
+  async function update(payload: { username?: string }) {
+    console.log(payload.username);
+
     await post(payload);
   }
 
   return {
     isLoading,
     error,
-    login,
+    update,
   };
 }

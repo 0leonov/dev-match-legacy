@@ -16,14 +16,12 @@ export function useLazyPost<T>(url: string) {
       const axiosResponse = await axiosInstance.post<T>(url, payload);
 
       setData(axiosResponse.data);
-    } catch (responseError) {
-      if (responseError instanceof AxiosError) {
-        setError(
-          responseError?.response?.data?.message || responseError.message,
-        );
-      } else {
-        setError("Unexpected error.");
-      }
+    } catch (requestError) {
+      setError(
+        requestError instanceof AxiosError
+          ? requestError?.response?.data?.message || requestError.message
+          : "Unexpected error.",
+      );
     } finally {
       setIsLoading(false);
     }

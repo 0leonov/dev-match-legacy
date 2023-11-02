@@ -1,6 +1,6 @@
 import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { User } from "@/types";
+import { User } from "@/interfaces";
 
 export interface SessionState {
   accessToken: string | null;

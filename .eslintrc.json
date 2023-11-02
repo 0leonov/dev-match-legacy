@@ -7,9 +7,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
-  "plugins": [
-    "import", "@typescript-eslint", "prettier"
-  ],
+  "plugins": ["import", "@typescript-eslint", "prettier"],
   "rules": {
     "import/order": [
       "error",
