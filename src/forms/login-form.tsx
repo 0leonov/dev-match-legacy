@@ -50,10 +50,11 @@ export function LoginForm({ className }: { className?: string }) {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel htmlFor="email">Email</FormLabel>
 
               <FormControl>
                 <Input
+                  id="email"
                   placeholder="example@company.com"
                   type="email"
                   {...field}
@@ -70,10 +71,15 @@ export function LoginForm({ className }: { className?: string }) {
           name="password"
           render={({ field }) => (
             <FormItem className="mt-4">
-              <FormLabel>Password</FormLabel>
+              <FormLabel htmlFor="password">Password</FormLabel>
 
               <FormControl>
-                <Input placeholder="••••••••••" type="password" {...field} />
+                <Input
+                  id="password"
+                  placeholder="••••••••••"
+                  type="password"
+                  {...field}
+                />
               </FormControl>
 
               <FormMessage />

@@ -1,8 +1,10 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import { useLazyPost } from "@/hooks/use-lazy-post";
+import { Method } from "@/enums/method";
+import { useLazyRequest } from "@/hooks/use-lazy-request";
 import { LoginResponse } from "@/interfaces";
+import { RegisterSchema } from "@/schemas/register-schema";
 import { useAppDispatch } from "@/store";
 import { updateSession } from "@/store/slices/session-slice";
 
@@ -11,8 +13,10 @@ export function useRegister() {
 
   const router = useRouter();
 
-  const { isLoading, error, data, post } =
-    useLazyPost<LoginResponse>("/auth/register");
+  const { isLoading, error, data, post } = useLazyRequest<LoginResponse>(
+    "/auth/register",
+    Method.POST,
+  );
 
   useEffect(() => {
     if (data) {
@@ -21,12 +25,7 @@ export function useRegister() {
     }
   }, [appDispatch, data, router]);
 
-  async function register(payload: {
-    name: string;
-    username: string;
-    email: string;
-    password: string;
-  }) {
+  async function register(payload: RegisterSchema) {
     await post(payload);
   }
 

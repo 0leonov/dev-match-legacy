@@ -15,16 +15,16 @@ const listItems = [
     image: "/images/romance-and-friendship.png",
   },
   {
-    title: "Forums and Communities",
-    description:
-      "Engage in meaningful discussions, ask questions, and share your knowledge.",
-    image: "/images/forums-and-communities.png",
-  },
-  {
     title: "Collaboration Opportunities",
     description:
       "Find the perfect partner for your next project or join forces with talented individuals in your field.",
     image: "/images/collaboration-opportunities.png",
+  },
+  {
+    title: "Join Existing Projects",
+    description:
+      "Accelerate your projects by joining pre-formed teams with complementary skills and shared goals.",
+    image: "/images/join-existing-projects.png",
   },
 ];
 
@@ -36,7 +36,7 @@ export function FeaturesSection() {
           {listItems.map(({ title, description, image }) => (
             <div
               key={title}
-              className="px-12 py-16 text-center bg-background flex flex-col justify-between items-center gap-6"
+              className="px-12 py-16 text-center bg-background rounded-xl flex flex-col justify-between items-center gap-6"
             >
               <div>
                 <h3 className="tracking-tight text-4xl sm:text-5xl">{title}</h3>

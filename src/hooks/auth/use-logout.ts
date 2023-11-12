@@ -1,8 +1,8 @@
-import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { useAxiosPrivateInstance } from "@/hooks/use-axios-private-instance";
+import { useAxiosPrivateInstance } from "@/hooks/auth/use-axios-private-instance";
+import { getAxiosErrorMessage } from "@/lib";
 import { useAppDispatch } from "@/store";
 import { resetSession } from "@/store/slices/session-slice";
 
@@ -24,14 +24,11 @@ export function useLogout() {
       appDispatch(resetSession());
       router.push("/welcome");
     } catch (requestError) {
-      setError(
-        requestError instanceof AxiosError
-          ? requestError?.response?.data?.message || requestError.message
-          : "Unexpected error.",
-      );
+      const errorMessage = getAxiosErrorMessage(requestError);
+      setError(errorMessage);
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   }
 
   return {

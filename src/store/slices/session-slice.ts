@@ -5,36 +5,61 @@ import { User } from "@/interfaces";
 export interface SessionState {
   accessToken: string | null;
   user: User | null;
+  isFetching: boolean;
+}
+
+export interface UpdateSessionPayload {
+  accessToken: string | null;
+  user: User | null;
 }
 
 const initialState: SessionState = {
   accessToken: null,
   user: null,
+  isFetching: false,
 };
 
 export const sessionSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    updateSession: (state, action: PayloadAction<SessionState>) => {
-      state.accessToken = action.payload.accessToken;
-      state.user = action.payload.user;
+    updateSession: (state, action: PayloadAction<UpdateSessionPayload>) => {
+      return {
+        ...state,
+        accessToken: action.payload.accessToken,
+        user: action.payload.user,
+      };
     },
     updateUser: (state, action: PayloadAction<User>) => {
-      state.user = action.payload;
+      return {
+        ...state,
+        user: action.payload,
+      };
     },
     updateToken: (state, action: PayloadAction<string>) => {
-      state.accessToken = action.payload;
-      state.user = null;
+      return {
+        ...state,
+        accessToken: action.payload,
+      };
     },
-    resetSession: (state) => {
-      state.accessToken = null;
-      state.user = null;
+    updateIsFetching(state, action: PayloadAction<boolean>) {
+      return {
+        ...state,
+        isFetching: action.payload,
+      };
+    },
+    resetSession: () => {
+      return initialState;
     },
   },
 });
 
-export const { updateSession, updateUser, updateToken, resetSession } =
-  sessionSlice.actions;
+export const {
+  updateSession,
+  updateUser,
+  updateToken,
+  updateIsFetching,
+  resetSession,
+} = sessionSlice.actions;
 
 export default sessionSlice.reducer;

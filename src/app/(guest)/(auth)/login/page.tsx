@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-import { LoginForm } from "@/forms";
+import { LoginForm } from "@/forms/login-form";
 
 export default function LoginPage() {
   return (

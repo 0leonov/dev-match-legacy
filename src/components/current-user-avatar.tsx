@@ -3,10 +3,14 @@
 import React from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useSession } from "@/hooks/auth/use-session";
+import { useAppSelector } from "@/store";
 
 export function CurrentUserAvatar({ className }: { className?: string }) {
-  const { user } = useSession();
+  const user = useAppSelector((state) => state.session.user);
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <Avatar className={className}>

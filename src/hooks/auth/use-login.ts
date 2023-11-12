@@ -1,8 +1,10 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import { useLazyPost } from "@/hooks/use-lazy-post";
+import { Method } from "@/enums/method";
+import { useLazyRequest } from "@/hooks/use-lazy-request";
 import { LoginResponse } from "@/interfaces";
+import { LoginSchema } from "@/schemas/login-schema";
 import { useAppDispatch } from "@/store";
 import { updateSession } from "@/store/slices/session-slice";
 
@@ -11,8 +13,10 @@ export function useLogin() {
 
   const router = useRouter();
 
-  const { isLoading, error, data, post } =
-    useLazyPost<LoginResponse>("/auth/login");
+  const { isLoading, error, data, post } = useLazyRequest<LoginResponse>(
+    "/auth/login",
+    Method.POST,
+  );
 
   useEffect(() => {
     if (data) {
@@ -21,7 +25,7 @@ export function useLogin() {
     }
   }, [appDispatch, data, router]);
 
-  function login(payload: { email: string; password: string }) {
+  function login(payload: LoginSchema) {
     post(payload);
   }
 

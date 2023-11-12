@@ -7,10 +7,10 @@ import React from "react";
 import { CurrentUserAvatar } from "@/components/current-user-avatar";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useSession } from "@/hooks/auth/use-session";
+import { useAppSelector } from "@/store";
 
 export default function ProfilePage() {
-  const { user } = useSession();
+  const user = useAppSelector((state) => state.session.user);
 
   if (!user) {
     return null;

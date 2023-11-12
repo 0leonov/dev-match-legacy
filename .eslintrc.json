@@ -1,14 +1,23 @@
 {
   "extends": [
     "next/core-web-vitals",
-    "plugin:import/recommended",
-    "plugin:react/recommended",
+    "airbnb",
     "airbnb-typescript",
+    "airbnb/hooks",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:@typescript-eslint/stylistic",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
   ],
   "plugins": ["import", "@typescript-eslint", "prettier"],
   "rules": {
+    "react/require-default-props": "off",
+    "import/prefer-default-export": "off",
+    "consistent-return": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "react/jsx-props-no-spreading": "off",
     "import/order": [
       "error",
       {
@@ -24,7 +33,7 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 12,
+    "ecmaVersion": "latest",
     "sourceType": "module",
     "project": "./tsconfig.json"
   },

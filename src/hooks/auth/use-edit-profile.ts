@@ -1,17 +1,23 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import { useLazyPost } from "@/hooks/use-lazy-post";
+import { Method } from "@/enums/method";
+import { useLazyRequest } from "@/hooks/use-lazy-request";
 import { User } from "@/interfaces";
+import { EditProfileSchema } from "@/schemas/edit-profile-schema";
 import { useAppDispatch } from "@/store";
 import { updateUser } from "@/store/slices/session-slice";
 
-export function useUpdate() {
+export function useEditProfile() {
   const appDispatch = useAppDispatch();
 
   const router = useRouter();
 
-  const { isLoading, error, data, post } = useLazyPost<User>("/me");
+  const { isLoading, error, data, post } = useLazyRequest<User>(
+    "/me",
+    Method.PATCH,
+    true,
+  );
 
   useEffect(() => {
     if (data) {
@@ -19,15 +25,13 @@ export function useUpdate() {
     }
   }, [appDispatch, data, router]);
 
-  async function update(payload: { username?: string }) {
-    console.log(payload.username);
-
+  async function edit(payload: EditProfileSchema) {
     await post(payload);
   }
 
   return {
     isLoading,
     error,
-    update,
+    edit,
   };
 }

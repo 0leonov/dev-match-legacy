@@ -12,15 +12,15 @@ export default function GuestLayout({
 }) {
   const router = useRouter();
 
-  const { isLoading, user } = useSession(false);
+  const { user, isFetching } = useSession();
 
   useEffect(() => {
     if (user) {
       router.push("/");
     }
-  }, [user, router]);
+  }, [router, user]);
 
-  if (isLoading || user) {
+  if (user || isFetching) {
     return null;
   }
 

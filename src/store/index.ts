@@ -45,7 +45,7 @@ const rootReducer = combineReducers({ session: sessionReducer });
 const persistConfig = getPersistConfig({
   key: "root",
   storage,
-  blacklist: ["session.user"],
+  whitelist: ["session.accessToken"],
   rootReducer,
 });
 
