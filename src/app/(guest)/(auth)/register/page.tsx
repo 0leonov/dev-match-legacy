@@ -6,7 +6,7 @@ import { RegisterForm } from "@/forms/register-form";
 
 export default function RegisterPage() {
   return (
-    <main className="min-h-screen bg-muted">
+    <main className="min-h-screen">
       <div className="p-8 sm:pt-24">
         <Link href="/welcome">
           <Image
@@ -27,13 +27,13 @@ export default function RegisterPage() {
         </p>
       </div>
 
-      <RegisterForm className="max-w-md w-full mx-auto p-8 pb-10 border bg-card text-card-foreground shadow-sm xs:rounded-lg" />
+      <RegisterForm className="max-w-md w-full mx-auto p-8 pb-10 bg-secondary text-card-foreground xs:rounded-lg" />
 
       <p className="p-8 text-center">
         {"Already have an account? "}
         <Link
           href="/login"
-          className="font-medium text-primary underline-offset-4 hover:underline"
+          className="font-medium text-accent underline-offset-4 hover:underline"
         >
           Log in
         </Link>

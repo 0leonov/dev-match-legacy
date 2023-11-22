@@ -2,8 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-import { Separator } from "@/components/ui/separator";
-
 const content = [
   {
     title: "Company",
@@ -40,8 +38,8 @@ const content = [
 export function Footer() {
   return (
     <footer className="bg-muted text-muted-foreground">
-      <div className="container py-8 text-sm">
-        <div className="flex gap-8 flex-col sm:flex-row">
+      <div className="container py-8 text-sm space-y-16">
+        <div className="flex gap-8 flex-col md:flex-row">
           <div className="max-w-md">
             <div className="flex gap-2">
               <Image src="/images/logo.svg" alt="" width={32} height={32} />
@@ -53,7 +51,7 @@ export function Footer() {
 
             <p className="mt-2">
               Social network for IT specialists – search, collaborate, learn,
-              communicate
+              communicate.
             </p>
           </div>
 
@@ -68,7 +66,12 @@ export function Footer() {
                   {links.map((link) => {
                     return (
                       <li key={link.title}>
-                        <Link href={link.href}>{link.title}</Link>
+                        <Link
+                          href={link.href}
+                          className="underline-offset-4 hover:underline"
+                        >
+                          {link.title}
+                        </Link>
                       </li>
                     );
                   })}
@@ -77,8 +80,6 @@ export function Footer() {
             );
           })}
         </div>
-
-        <Separator className="my-8" />
 
         <p>
           Created by{" "}

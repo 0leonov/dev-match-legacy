@@ -2,6 +2,7 @@ import { type Metadata } from "next";
 import { Inter } from "next/font/google";
 import React from "react";
 
+import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { ReduxProvider } from "@/store/redux-provider";
 import "./globals.css";
@@ -24,8 +25,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
-          {children}
-          <Toaster />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster />
+          </ThemeProvider>
         </ReduxProvider>
       </body>
     </html>
