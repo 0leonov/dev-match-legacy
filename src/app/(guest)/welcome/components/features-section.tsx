@@ -6,25 +6,25 @@ const listItems = [
     title: "Professional Connections",
     description:
       "Forge valuable professional relationships, exchange insights, and grow your network.",
-    image: "/images/professional-connections.png",
+    image: "/images/professional-connections.svg",
   },
   {
     title: "Romance and Friendship",
     description:
       "Find romance or develop lasting friendships with individuals who share your interests and values.",
-    image: "/images/romance-and-friendship.png",
+    image: "/images/romance-and-friendship.svg",
   },
   {
     title: "Collaboration Opportunities",
     description:
       "Find the perfect partner for your next project or join forces with talented individuals in your field.",
-    image: "/images/collaboration-opportunities.png",
+    image: "/images/collaboration-opportunities.svg",
   },
   {
     title: "Join Existing Projects",
     description:
       "Accelerate your projects by joining pre-formed teams with complementary skills and shared goals.",
-    image: "/images/join-existing-projects.png",
+    image: "/images/join-existing-projects.svg",
   },
 ];
 
@@ -44,9 +44,13 @@ export function FeaturesSection() {
                 <p className="mt-8 text-muted-foreground sm:">{description}</p>
               </div>
 
-              <div className="h-auto">
-                <Image src={image} alt="" width={500} height={500} />
-              </div>
+              <Image
+                src={image}
+                alt=""
+                width={500}
+                height={500}
+                className="w-auto p-4"
+              />
             </div>
           ))}
         </div>
