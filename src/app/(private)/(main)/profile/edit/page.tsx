@@ -8,13 +8,13 @@ import { UpdateAvatarForm } from "@/forms/update-avatar-form";
 export default function EditProfilePage() {
   return (
     <main className="max-w-screen-md mx-auto p-8 py-12">
-      <h1 className="mb-8 text-2xl font-semibold tracking-tight">
-        Edit profile
-      </h1>
+      <h1 className="text-2xl font-semibold">Edit profile</h1>
 
-      <UpdateAvatarForm />
+      <div className="mb-8 space-y-6">
+        <UpdateAvatarForm />
 
-      <EditProfileForm className="mt-6" />
+        <EditProfileForm />
+      </div>
     </main>
   );
 }

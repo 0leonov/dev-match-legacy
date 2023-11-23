@@ -6,7 +6,7 @@ import { LoginForm } from "@/forms/login-form";
 
 export default function LoginPage() {
   return (
-    <main className="min-h-screen bg-muted">
+    <main className="min-h-screen">
       <div className="p-8 sm:pt-24">
         <Link href="/welcome">
           <Image
@@ -27,13 +27,13 @@ export default function LoginPage() {
         </p>
       </div>
 
-      <LoginForm className="max-w-md w-full mx-auto p-8 pb-10 border bg-card text-card-foreground shadow-sm xs:rounded-lg" />
+      <LoginForm className="max-w-md w-full mx-auto p-8 pb-10 bg-secondary xs:rounded-lg" />
 
       <p className="p-8 text-center">
         {"Don't have an account? "}
         <Link
           href="/register"
-          className="font-medium text-primary underline-offset-4 hover:underline"
+          className="font-medium text-accent underline-offset-4 hover:underline"
         >
           Sign up
         </Link>
