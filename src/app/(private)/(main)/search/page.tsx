@@ -1,5 +1,7 @@
 import React from "react";
 
+import { PageLayout } from "@/components/layouts/page-layout";
+
 export default function SearchPage() {
-  return <div>SearchPage</div>;
+  return <PageLayout title="Search" />;
 }

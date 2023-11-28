@@ -20,7 +20,7 @@ export function useSession(redirect = false) {
   const router = useRouter();
 
   useEffect(() => {
-    if (user) {
+    if (user || !accessToken) {
       return;
     }
 
@@ -53,7 +53,7 @@ export function useSession(redirect = false) {
     fetch();
 
     return () => abortController.abort();
-  }, [appDispatch, axiosPrivateInstance, redirect, router, user]);
+  }, [accessToken, appDispatch, axiosPrivateInstance, redirect, router, user]);
 
   return {
     user,

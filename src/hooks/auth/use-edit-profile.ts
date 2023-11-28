@@ -1,4 +1,3 @@
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 import { Method } from "@/enums/method";
@@ -11,8 +10,6 @@ import { updateUser } from "@/store/slices/session-slice";
 export function useEditProfile() {
   const appDispatch = useAppDispatch();
 
-  const router = useRouter();
-
   const { isLoading, error, data, post } = useLazyRequest<User>(
     "/me",
     Method.PATCH,
@@ -23,7 +20,7 @@ export function useEditProfile() {
     if (data) {
       appDispatch(updateUser(data));
     }
-  }, [appDispatch, data, router]);
+  }, [appDispatch, data]);
 
   async function edit(payload: EditProfileSchema) {
     await post(payload);

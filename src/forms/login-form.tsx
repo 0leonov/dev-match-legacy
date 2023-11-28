@@ -87,7 +87,7 @@ export function LoginForm({ className }: { className?: string }) {
           )}
         />
 
-        <Button className="w-full mt-8" disabled={isLoading}>
+        <Button className="w-full mt-8" disabled={isLoading} variant="accent">
           {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
           Sign in
         </Button>

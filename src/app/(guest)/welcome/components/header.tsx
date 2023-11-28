@@ -8,7 +8,13 @@ import { buttonVariants } from "@/components/ui/button";
 export function Header() {
   return (
     <header className="flex justify-between items-center">
-      <Image src="/images/logo.svg" alt="" width={64} height={64} />
+      <Image
+        src="/images/logo.svg"
+        alt=""
+        width={64}
+        height={64}
+        className="transition-opacity opacity-80 hover:opacity-100"
+      />
 
       <Link href="/login" className={buttonVariants({ variant: "ghost" })}>
         Login

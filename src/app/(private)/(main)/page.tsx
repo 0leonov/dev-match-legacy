@@ -1,5 +1,7 @@
 import React from "react";
 
+import { PageLayout } from "@/components/layouts/page-layout";
+
 export default function HomePage() {
-  return <div>HomePage</div>;
+  return <PageLayout title="Home" />;
 }

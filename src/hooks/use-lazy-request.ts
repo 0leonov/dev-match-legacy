@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from "axios";
 import { useState } from "react";
 
 import { Method } from "@/enums/method";
@@ -8,6 +9,7 @@ export function useLazyRequest<T>(
   url: string,
   method: Method,
   isPrivate = false,
+  config?: AxiosRequestConfig<unknown> | undefined,
 ) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -20,21 +22,22 @@ export function useLazyRequest<T>(
     setError(null);
 
     try {
-      let axiosResponse;
+      const axiosInstanceToUse = isPrivate
+        ? axiosPrivateInstance
+        : axiosInstance;
 
+      let axiosResponse;
       if (method === Method.POST) {
-        axiosResponse = isPrivate
-          ? await axiosPrivateInstance.post<T>(url, payload)
-          : await axiosInstance.post<T>(url, payload);
+        axiosResponse = await axiosInstanceToUse.post<T>(url, payload, config);
       } else if (method === Method.PATCH) {
-        axiosResponse = isPrivate
-          ? await axiosPrivateInstance.patch<T>(url, payload)
-          : await axiosInstance.patch<T>(url, payload);
-      } else {
-        return;
+        axiosResponse = await axiosInstanceToUse.patch<T>(url, payload, config);
+      } else if (method === Method.PUT) {
+        axiosResponse = await axiosInstanceToUse.put<T>(url, payload, config);
       }
 
-      setData(axiosResponse.data);
+      if (axiosResponse) {
+        setData(axiosResponse.data);
+      }
     } catch (requestError) {
       const errorMessage = getAxiosErrorMessage(requestError);
       setError(errorMessage);

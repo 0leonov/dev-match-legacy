@@ -118,7 +118,7 @@ export function RegisterForm({ className }: { className?: string }) {
           ))}
         </div>
 
-        <Button className="mt-8 w-full" disabled={isLoading}>
+        <Button className="mt-8 w-full" disabled={isLoading} variant="accent">
           {isLoading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
           Sign up
         </Button>

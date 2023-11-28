@@ -25,18 +25,18 @@ export default function LogoutPage() {
   }, [error, toast]);
 
   return (
-    <div className="min-h-screen bg-muted p-8 pt-24">
+    <div>
       <Link href="/">
         <Image
           src="/images/logo.svg"
           alt=""
           width={64}
           height={64}
-          className="mx-auto"
+          className="mx-auto m-8 sm:mt-24"
         />
       </Link>
 
-      <main className="max-w-md w-full mx-auto mt-8 p-8 pb-10 border bg-card text-card-foreground shadow-sm xs:rounded-lg">
+      <main className="max-w-md w-full mx-auto p-8 bg-secondary text-secondary-foreground xs:rounded-xl">
         <h1 className="text-center text-3xl tracking-tight">
           Are you sure you want to sign out?
         </h1>
@@ -45,7 +45,7 @@ export default function LogoutPage() {
           onClick={logout}
           disabled={isLoading}
           className="w-full mt-8"
-          size="lg"
+          variant="accent"
         >
           {isLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
           Sign out

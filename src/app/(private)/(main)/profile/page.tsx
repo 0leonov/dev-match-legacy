@@ -17,7 +17,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <main className="mx-auto py-12 sm:max-w-screen-md xl:max-w-screen-lg xl:px-8">
+    <main className="mx-auto py-8 sm:max-w-screen-md xl:max-w-screen-lg xl:px-8 sm:py-24">
       <section className="flex px-8 gap-8 xl:px-16 xl:gap-16">
         <CurrentUserAvatar className="w-24 h-24 xl:w-40 xl:h-40" />
 

@@ -15,26 +15,28 @@ export function NavigationSidebar({
 }) {
   return (
     <div className="flex min-h-screen">
-      <ScrollArea className="w-full max-w-fit border-r hidden sm:flex">
-        <aside className="min-h-screen px-4 py-8 flex flex-col gap-8">
-          <Link
-            href="/"
-            className="flex justify-center items-center gap-2 xl:px-8"
-          >
-            <div className="w-8 h-8">
-              <Image src="/images/logo.svg" width={64} height={64} alt="" />
-            </div>
+      <aside className="fixed top-0 bottom-0 w-full max-w-fit border-r hidden sm:flex">
+        <ScrollArea>
+          <div className="min-h-screen px-4 py-8 flex flex-col gap-8">
+            <Link
+              href="/"
+              className="flex justify-center items-center gap-4 xl:px-8"
+            >
+              <div className="w-8 h-8">
+                <Image src="/images/logo.svg" width={64} height={64} alt="" />
+              </div>
 
-            <span className="text-xl font-medium hidden xl:flex">
-              Dev Match
-            </span>
-          </Link>
+              <span className="text-xl font-medium hidden xl:flex">
+                Dev Match
+              </span>
+            </Link>
 
-          <nav className="grow flex flex-col gap-2">{items}</nav>
+            <nav className="grow flex flex-col gap-2">{items}</nav>
 
-          <nav className="flex flex-col gap-2">{bottomItems}</nav>
-        </aside>
-      </ScrollArea>
+            <nav className="flex flex-col gap-2">{bottomItems}</nav>
+          </div>
+        </ScrollArea>
+      </aside>
 
       <main className="grow">{children}</main>
     </div>

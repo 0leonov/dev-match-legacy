@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { Gender } from "@/enums";
+import { Gender, Interest } from "@/enums";
 
 export const editProfileSchema = z.object({
   name: z
@@ -19,6 +19,7 @@ export const editProfileSchema = z.object({
     .string()
     .max(140, "Biography must be shorter than 150 characters."),
   gender: z.nativeEnum(Gender),
+  interests: z.array(z.nativeEnum(Interest)),
 });
 
 export type EditProfileSchema = z.infer<typeof editProfileSchema>;

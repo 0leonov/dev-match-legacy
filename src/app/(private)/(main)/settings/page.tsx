@@ -2,16 +2,15 @@ import { LogOut } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
+import { PageLayout } from "@/components/layouts/page-layout";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib";
 
 export default function SettingsPage() {
   return (
-    <main className="max-w-screen-md mx-auto p-8 py-12">
-      <h1 className="text-2xl font-semibold">Settings</h1>
-
-      <div className="mt-8 space-y-6">
+    <PageLayout title="Settings">
+      <div className="space-y-6">
         <ThemeToggle />
 
         <Link
@@ -22,6 +21,6 @@ export default function SettingsPage() {
           Sign out
         </Link>
       </div>
-    </main>
+    </PageLayout>
   );
 }
